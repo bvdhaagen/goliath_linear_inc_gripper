@@ -8,7 +8,7 @@
   <xacro:include filename="$(find ros2_control_demo_description)/goliath/urdf/inc/create_link.xacro"/>
 
   <xacro:create_link
-      link_name="base_link"
+      link_name="arm_base_link"
       xyz_offset="0 0 0"
       rpy_offset="0 0 0"
       material="silver"      
@@ -83,10 +83,10 @@
  
  
             
-  <joint name="base_joint" type="fixed">
-    <parent link="world"/>
-    <child link="base_link"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+  <joint name="arm_base_joint" type="fixed">
+    <parent link="platform"/>
+    <child link="arm_base_link"/>
+    <origin xyz="0 0 0.09" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>
   </joint>
 
