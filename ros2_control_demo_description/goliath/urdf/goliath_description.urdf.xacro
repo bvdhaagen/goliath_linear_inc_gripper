@@ -165,7 +165,11 @@
     <origin xyz="-0.0038 0.005 0.017" rpy="0 0 0"/>
   </joint>
   
-  
+  <joint name="joint_powebox" type="fixed">
+    <parent link="link_2"/>
+    <child link="power_box"/>
+    <origin xyz="-0.276 0 -0.057" rpy="0 1.5775 0"/>
+  </joint>
 
 </xacro:macro>
 
