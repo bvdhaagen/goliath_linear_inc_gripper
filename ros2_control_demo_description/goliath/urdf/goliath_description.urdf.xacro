@@ -87,7 +87,7 @@
       rpy_offset="0 0 0"
       material="silver"      
       mesh_package="ros2_control_demo_description/goliath"
-      mesh_name="power_box"
+      mesh_name="powerbox"
   />
  
             
