@@ -80,7 +80,15 @@
       mesh_package="ros2_control_demo_description/goliath"
       mesh_name="tool_base"
   />
- 
+
+<xacro:create_link
+      link_name="power_box"
+      xyz_offset="0 0 0"
+      rpy_offset="0 0 0"
+      material="silver"      
+      mesh_package="ros2_control_demo_description/goliath"
+      mesh_name="power_box"
+  />
  
             
   <joint name="arm_base_joint" type="fixed">
