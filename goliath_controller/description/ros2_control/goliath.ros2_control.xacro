@@ -156,7 +156,26 @@
       </joint>
 
     </ros2_control>
-    
+
+    <ros2_control name="${name}_base" type="system">
+        <hardware>
+           <plugin>base_link_linear_controller/RobotSystem</plugin> 
+           <param name="position1_joint_name">slider_11</param>
+           <param name="loop_rate">50</param>
+           <param name="device">/dev/ttyACM0</param>
+           <param name="baud_rate">115200</param>
+           <param name="timeout">1000</param> 
+        </hardware>
+        <joint name="slider_11">
+           <command_interface name="position">
+             <param name="min">${-2*pi}</param>
+             <param name="max">${2*pi}</param>
+           </command_interface>
+           <state_interface name="position">
+             <param name="initial_value">0.0</param>
+           </state_interface>
+        </joint>
+   </ros2_control>
     
     
 
