@@ -91,10 +91,11 @@ return_type RobotSystem::read(const rclcpp::Time &, const rclcpp::Duration &)
       if (pos != std::string::npos) {
         joint_position_state_[i] = std::stod(line.substr(pos + 3));
       }
-      size_t slider_pos = line.find("S:");
-      if (slider_pos != std::string::npos) {
-        joint_position_state_[6] = std::stod(line.substr(slider_pos + 2));
-      }
+    }
+
+    size_t slider_pos = line.find("S:");
+    if (slider_pos != std::string::npos) {
+      joint_position_state_[6] = std::stod(line.substr(slider_pos + 3));
     }
 
   } catch (const boost::system::system_error &e) {
