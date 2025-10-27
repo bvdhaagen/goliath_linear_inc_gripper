@@ -19,8 +19,8 @@ CallbackReturn RobotSystem::on_init(const hardware_interface::HardwareInfo &info
   baud_rate_ = std::stoi(info.hardware_parameters.at("baud_rate"));
   timeout_ms_ = std::stoi(info.hardware_parameters.at("timeout"));
 
-  joint_position_command_.resize(6, 0.0);
-  joint_position_state_.resize(6, 0.0);
+  joint_position_command_.resize(7, 0.0);
+  joint_position_state_.resize(7, 0.0);
   joint_velocity_state_.resize(6, 0.0);
 
   return CallbackReturn::SUCCESS;
@@ -87,11 +87,15 @@ return_type RobotSystem::read(const rclcpp::Time &, const rclcpp::Duration &)
     RCLCPP_INFO(rclcpp::get_logger("RobotSystem"), "Received: %s", line.c_str());
     
     for (int i = 0; i < 6; ++i) {
-    size_t pos = line.find("J" + std::to_string(i + 1) + ":");
-    if (pos != std::string::npos) {
-      joint_position_state_[i] = std::stod(line.substr(pos + 3));
+      size_t pos = line.find("J" + std::to_string(i + 1) + ":");
+      if (pos != std::string::npos) {
+        joint_position_state_[i] = std::stod(line.substr(pos + 3));
+      }
+      size_t slider_pos = line.find("S:");
+      if (slider_pos != std::string::npos) {
+        joint_position_state_[6] = std::stod(line.substr(slider_pos + 2));
+      }
     }
-  }
 
   } catch (const boost::system::system_error &e) {
     RCLCPP_ERROR(rclcpp::get_logger("RobotSystem"), "Read failed: %s", e.what());
@@ -116,7 +120,7 @@ return_type RobotSystem::write(const rclcpp::Time &, const rclcpp::Duration &)
   cmd << "M ";
   for (size_t i = 0; i < 6; ++i) {
     cmd << joint_position_command_[i];
-    if (i < 5) cmd << ",";
+    if (i < 6) cmd << ",";
   }
   cmd << "\n";
 
@@ -138,6 +142,7 @@ std::vector<hardware_interface::StateInterface> RobotSystem::export_state_interf
     state_interfaces.emplace_back(
       "joint_" + std::to_string(i + 1), "velocity", &joint_velocity_state_[i]);
   }
+  state_interfaces.emplace_back("slider_11", "position", &joint_position_state_[6]);
   return state_interfaces;
  }
 
@@ -148,6 +153,7 @@ std::vector<hardware_interface::CommandInterface> RobotSystem::export_command_in
     command_interfaces.emplace_back(
       "joint_" + std::to_string(i + 1), "position", &joint_position_command_[i]);
   }
+  command_interfaces.emplace_back("slider_11", "position", &joint_position_command_[6]);
   return command_interfaces;
 }
 
