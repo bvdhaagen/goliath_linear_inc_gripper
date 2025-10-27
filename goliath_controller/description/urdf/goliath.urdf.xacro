@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="goliath">
 
   <!-- Import goliath Linear macro -->
-  <xacro:include filename="$(find base_link_linear_controller)/urdf/base_link_linear.xacro"/>
+  <xacro:include filename="$(find goliath_controller)/urdf/base_link_linear.xacro"/>
 
   <!-- Import goliath macro -->
   <xacro:include filename="$(find ros2_control_demo_description)/goliath/urdf/goliath_description.urdf.xacro"/>
@@ -17,7 +17,7 @@
   <xacro:goliath_description/>
 
   <!-- Import goliath slider ros2_control description -->
-  <xacro:include filename="$(find base_link_linear_controller)/ros2_control/base_link_linear.ros2_control.xacro" />
+  <xacro:include filename="$(find goliath_controller)/ros2_control/base_link_linear.ros2_control.xacro" />
 
   <!-- Import goliath ros2_control description -->
   <xacro:include filename="$(find goliath_controller)/ros2_control/goliath.ros2_control.xacro" />
