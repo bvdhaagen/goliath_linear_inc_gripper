@@ -4,8 +4,6 @@
 <xacro:include filename="$(find goliath_controller)/urdf/materials_linear.xacro" />
 <xacro:include filename="$(find goliath_controller)/urdf/base_link_linear.trans" />
 <xacro:include filename="$(find goliath_controller)/urdf/base_link_linear.gazebo" />
-<xacro:include filename="$(find goliath_controller)/ros2_control/base_link_linear.ros2_control.xacro" />
-
 
 <link name="base_link">
   

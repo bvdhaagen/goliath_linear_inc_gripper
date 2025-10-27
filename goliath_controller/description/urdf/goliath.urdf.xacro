@@ -16,9 +16,6 @@
 
   <xacro:goliath_description/>
 
-  <!-- Import goliath slider ros2_control description -->
-  <xacro:include filename="$(find goliath_controller)/ros2_control/base_link_linear.ros2_control.xacro" />
-
   <!-- Import goliath ros2_control description -->
   <xacro:include filename="$(find goliath_controller)/ros2_control/goliath.ros2_control.xacro" />
   
