@@ -1,0 +1,252 @@
+<?xml version="1.0" ?>
+<robot name="base_link_linear" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ✅ Add namespace argument -->
+  <xacro:arg name="namespace" default="robot_1"/>
+  <xacro:property name="ns" value="$(arg namespace)"/>
+
+  <!-- Include original files (they remain unchanged) -->
+  <xacro:include filename="$(find base_link_linear_controller)/urdf/materials.xacro" />
+  <xacro:include filename="$(find base_link_linear_controller)/urdf/base_link_linear.trans" />
+  <xacro:include filename="$(find base_link_linear_controller)/urdf/base_link_linear.gazebo" />
+
+  <!-- ✅ Include the namespaced ros2_control file -->
+  <xacro:include filename="$(find base_link_linear_controller)/ros2_control/base_link_linear_ns.ros2_control.xacro" />
+
+  <!-- Instantiate the ros2_control with namespace -->
+  <xacro:base_link_linear_ns_ros2_control name="base_link_linear_ns_ros2_control" namespace="$(arg namespace)"/>
+
+  <!-- ✅ All links and joints prefixed with namespace -->
+  
+  <link name="${ns}/base_link_linear">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${ns}/unilidar_imu_initial">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.04" length="0.06"/> 
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.04" length="0.06"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${ns}/block4_1">
+    <inertial>
+      <origin xyz="0.026412832343615356 -0.26974632633557555 0.044172667934380634" rpy="0 0 0"/>
+      <mass value="0.31187716641464713"/>
+      <inertia ixx="9.5e-05" iyy="0.000104" izz="0.000134" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.144716 -0.150007 -0.022279" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/block4_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0.144716 -0.150007 -0.022279" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/block4_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${ns}/block1_1">
+    <inertial>
+      <origin xyz="-0.02708729840770817 -0.26974632633557555 0.04417266793438055" rpy="0 0 0"/>
+      <mass value="0.31187716641464713"/>
+      <inertia ixx="9.5e-05" iyy="0.000104" izz="0.000134" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.149489 -0.150007 -0.022279" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/block1_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.149489 -0.150007 -0.022279" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/block1_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${ns}/rail_2_v1_1">
+    <inertial>
+      <origin xyz="-1.3421247573031092e-07 -0.5000000436520409 1.490116086078075e-10" rpy="0 0 0"/>
+      <mass value="2.466150233067987"/>
+      <inertia ixx="0.205574" iyy="0.000123" izz="0.205574" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.122356 -0.498326 -0.058" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/rail_2_v1_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.122356 -0.498326 -0.058" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/rail_2_v1_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${ns}/rail_1_v1_1">
+    <inertial>
+      <origin xyz="-1.3421247570255534e-07 -0.5000000436520409 1.490116086078075e-10" rpy="0 0 0"/>
+      <mass value="2.466150233067987"/>
+      <inertia ixx="0.205574" iyy="0.000123" izz="0.205574" ixy="0.0" iyz="0.0" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.117644 -0.498326 -0.058" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/rail_1_v1_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0.117644 -0.498326 -0.058" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/rail_1_v1_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${ns}/platform">
+    <inertial>
+      <origin xyz="-0.002400134212475728 1.3912482277333992e-17 0.07" rpy="0 0 0"/>
+      <mass value="27.665936445492147"/>
+      <inertia ixx="0.210463" iyy="0.203244" izz="0.40633" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.002356 -0.0 -0.03" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/platform.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.002356 -0.0 -0.03" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/platform.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${ns}/block3_1">
+    <inertial>
+      <origin xyz="-0.02708729840770817 0.2747113263355756 0.04417266793438055" rpy="0 0 0"/>
+      <mass value="0.31187716641464713"/>
+      <inertia ixx="9.5e-05" iyy="0.000104" izz="0.000134" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.149489 0.149472 -0.022279" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/block3_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.149489 0.149472 -0.022279" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/block3_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${ns}/block2_1">
+    <inertial>
+      <origin xyz="0.026391835320814905 0.2747113263355756 0.04417266793438073" rpy="0 0 0"/>
+      <mass value="0.31187716641464713"/>
+      <inertia ixx="9.5e-05" iyy="0.000104" izz="0.000134" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.144716 0.149472 -0.022279" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/block2_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0.144716 0.149472 -0.022279" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find base_link_linear_description)/meshes/block2_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ✅ All joints with namespace prefix -->
+  
+  <joint name="${ns}/Rigid_4" type="fixed">
+    <origin xyz="-0.147072 0.150007 -0.007721" rpy="0 0 0"/>
+    <parent link="${ns}/platform"/>
+    <child link="${ns}/block4_1"/>
+  </joint>
+
+  <joint name="${ns}/Rigid_6" type="fixed">
+    <origin xyz="0.147133 0.150007 -0.007721" rpy="0 0 0"/>
+    <parent link="${ns}/platform"/>
+    <child link="${ns}/block1_1"/>
+  </joint>
+
+  <joint name="${ns}/Rigid_8" type="fixed">
+    <origin xyz="0.122356 0.498326 0.058" rpy="0 0 0"/>
+    <parent link="${ns}/base_link_linear"/>
+    <child link="${ns}/rail_2_v1_1"/>
+  </joint>
+
+  <joint name="${ns}/Rigid_9" type="fixed">
+    <origin xyz="-0.117644 0.498326 0.058" rpy="0 0 0"/>
+    <parent link="${ns}/base_link_linear"/>
+    <child link="${ns}/rail_1_v1_1"/>
+  </joint>
+
+  <!-- ✅ This is the moving joint - important! -->
+  <joint name="${ns}/slider_11" type="prismatic">
+    <origin xyz="0.002356 0.0 0.03" rpy="0 0 0"/>
+    <parent link="${ns}/base_link_linear"/>
+    <child link="${ns}/platform"/>
+    <axis xyz="0.0 1.0 0.0"/>
+    <limit upper="0.455" lower="-0.455" effort="100" velocity="100"/>
+  </joint>
+
+  <joint name="${ns}/Rigid_12" type="fixed">
+    <origin xyz="0.147133 -0.149472 -0.007721" rpy="0 0 0"/>
+    <parent link="${ns}/platform"/>
+    <child link="${ns}/block3_1"/>
+  </joint>
+
+  <joint name="${ns}/Rigid_13" type="fixed">
+    <origin xyz="-0.147072 -0.149472 -0.007721" rpy="0 0 0"/>
+    <parent link="${ns}/platform"/>
+    <child link="${ns}/block2_1"/>
+  </joint>
+
+  <joint name="${ns}/Rigid_15" type="fixed">
+    <origin xyz="0.0 0.65 0.07" rpy="0 0 -0.2"/>
+    <parent link="${ns}/base_link_linear"/>
+    <child link="${ns}/unilidar_imu_initial"/>
+  </joint>
+
+</robot>
