@@ -72,24 +72,34 @@
       mesh_name="tool_connector"
   />
   
-<xacro:create_link
-      link_name="tool_connector"
-      xyz_offset="-0.0036 0.0053 0.0176"
-      rpy_offset="0 0 0"
+  <!--
+  <xacro:create_link
+      link_name="weapon"
+      xyz_offset="0.00 0.16 0.00"
+      rpy_offset="0 0 1.5775"
       material="silver"      
       mesh_package="ros2_control_demo_description/goliath"
-      mesh_name="tool_base"
-  />
+      mesh_name="weapon2"
+  /> 
+  -->
+  
 
-<xacro:create_link
+ 
+  <xacro:create_link
       link_name="power_box"
       xyz_offset="0 0 0"
-      rpy_offset="0 0 0"
+      rpy_offset="0 1.5775 0"
       material="silver"      
       mesh_package="ros2_control_demo_description/goliath"
       mesh_name="powerbox"
+      
   />
- 
+  
+  
+   
+  
+  
+  <!-- ARM                                          -->
             
   <joint name="arm_base_joint" type="fixed">
     <parent link="platform"/>
@@ -99,6 +109,7 @@
   </joint>
 
   <!-- joints - main serial chain -->
+  
   <joint name="joint_1" type="revolute">
     <parent link="arm_base_link"/>
     <child link="link_1"/>
@@ -147,28 +158,29 @@
     <limit effort="1000.0" lower="${-pi}" upper="${pi}" velocity="2.5"/>
   </joint>
 
-  <joint name="joint_tool_connector_frame" type="fixed">
-    <parent link="link_6"/>
-    <child link="tool_connector"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </joint>
-  
+
   <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   
        joints for the tool - softgripper
        
        +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-       
-  <joint name="joint_connector_frame" type="fixed">
-    <parent link="tool_connector"/>
+  <joint name="joint_tool_connector_frame" type="fixed">
+    <parent link="link_6"/>
     <child link="tool_base"/>
-    <origin xyz="-0.0038 0.005 0.017" rpy="0 0 0"/>
+    <origin xyz="0 0 0.017" rpy="0 0 ${pi/2}"/>
   </joint>
+     
+<!--  <joint name="joint_weapon" type="fixed">
+    <parent link="tool_base"/>
+    <child link="weapon"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+-->
   
-  <joint name="joint_powebox" type="fixed">
-    <parent link="link_2"/>
+  <joint name="joint_powerbox" type="fixed">
+    <parent link="link_1"/>
     <child link="power_box"/>
-    <origin xyz="-0.276 0 -0.057" rpy="0 1.5775 0"/>
+    <origin xyz="0 -0.002 -0.108" rpy="${pi/2} ${-pi/2} 0"/>
   </joint>
 
 </xacro:macro>

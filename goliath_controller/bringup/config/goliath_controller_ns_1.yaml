@@ -1,0 +1,26 @@
+robot_1:   # change this for every new robot
+  controller_manager:
+    ros__parameters:
+      update_rate: 100  # Hz
+
+      
+      joint_state_broadcaster:
+        type: joint_state_broadcaster/JointStateBroadcaster
+
+      position_controller:
+        type: position_controllers/JointGroupPositionController
+
+  position_controller:
+    ros__parameters:
+      joints:
+        - robot_1/joint_1
+        - robot_1/joint_2
+        - robot_1/joint_3
+        - robot_1/joint_4
+        - robot_1/joint_5
+        - robot_1/joint_6
+        
+        - robot_1/Slider 22
+        - robot_1/Slider 23
+        
+        - robot_1/slider_11

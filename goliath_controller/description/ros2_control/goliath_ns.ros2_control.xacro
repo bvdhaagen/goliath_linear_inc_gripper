@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ✅ Updated to use namespace instead of prefix -->
+  <xacro:macro name="goliath_ns_ros2_control" params="name namespace">
+    
+    <!-- Create the prefixed joint names with namespace + slash -->
+    <xacro:property name="ns" value="$(arg namespace)"/>
+    <xacro:property name="joint_prefix" value="${ns}/"/>
+
+    <ros2_control name="${name}" type="system">
+
+      <!-- MOCK hardware instead of real -->
+      <hardware>
+        <plugin>mock_components/GenericSystem</plugin>
+        <param name="mock_sensor_commands">true</param>
+      </hardware>
+
+      <!-- ===== JOINTS ===== -->
+
+      <!-- Joint 1 -->
+      <joint name="${joint_prefix}joint_1">
+        <command_interface name="position">
+          <param name="min">${-2*pi}</param>
+          <param name="max">${2*pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <!-- Joint 2 -->
+      <joint name="${joint_prefix}joint_2">
+        <command_interface name="position">
+          <param name="min">${-2*pi}</param>
+          <param name="max">${2*pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <!-- Joint 3 -->
+      <joint name="${joint_prefix}joint_3">
+        <command_interface name="position">
+          <param name="min">${-pi}</param>
+          <param name="max">${pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <!-- Joint 4 -->
+      <joint name="${joint_prefix}joint_4">
+        <command_interface name="position">
+          <param name="min">${-2*pi}</param>
+          <param name="max">${2*pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <!-- Joint 5 -->
+      <joint name="${joint_prefix}joint_5">
+        <command_interface name="position">
+          <param name="min">${-2*pi}</param>
+          <param name="max">${2*pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <!-- Joint 6 -->
+      <joint name="${joint_prefix}joint_6">
+        <command_interface name="position">
+          <param name="min">${-2*pi}</param>
+          <param name="max">${2*pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <!-- Slider 11 -->
+      <joint name="${joint_prefix}slider_11">
+        <command_interface name="position">
+          <!-- ✅ Fixed min/max order (min should be lower, max higher) -->
+          <param name="min">${-0.455}</param>
+          <param name="max">${0.455}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+      </joint>
+
+    </ros2_control>
+
+  </xacro:macro>
+
+</robot>

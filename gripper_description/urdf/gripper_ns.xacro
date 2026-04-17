@@ -1,0 +1,190 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ✅ Add namespace argument -->
+  <xacro:arg name="namespace" default="robot_1"/>
+  <xacro:property name="ns" value="$(arg namespace)"/>
+  <xacro:property name="joint_prefix" value="${ns}/"/>
+
+  <!-- Include original files (unchanged) -->
+  <xacro:include filename="$(find gripper_description)/urdf/materials.xacro" />
+  <xacro:include filename="$(find gripper_description)/urdf/gripper.trans" />
+  <xacro:include filename="$(find gripper_description)/urdf/gripper.gazebo" />
+  
+  <!-- ✅ Include namespaced ros2_control -->
+  <xacro:include filename="$(find gripper_controller)/ros2_control/gripper_ns.ros2_control.xacro" />
+  
+  <!-- Instantiate ros2_control with namespace -->
+  <xacro:gripper_ros2_control_ns name="gripper_ns_ros2_control" namespace="$(arg namespace)"/>
+
+  <!-- ✅ All links prefixed with namespace using joint_prefix -->
+  
+  <link name="${joint_prefix}tool_base">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      <mass value="0.03336098454176251"/>
+      <inertia ixx="5e-06" iyy="7e-06" izz="1.2e-05" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.0045 0.003 0" rpy="0 0 ${-pi/2}"/>
+      <geometry>
+        <mesh filename="file://$(find gripper_description)/meshes/tool_base.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0.0045 0.003 0" rpy="0 0 ${-pi/2}"/>
+      <geometry>
+        <mesh filename="file://$(find gripper_description)/meshes/tool_base.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${joint_prefix}grip_mount_1">
+    <inertial>
+      <origin xyz="-0.000 0.015547767390796129 0.01883273293370806" rpy="0 0 0"/>
+      <mass value="0.026038448039166225"/>
+      <inertia ixx="5e-06" iyy="4e-06" izz="5e-06" ixy="0.0" iyz="-1e-06" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.000365 0.006365 -0.008562" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find gripper_description)/meshes/grip_mount_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.000365 0.006365 -0.008562" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find gripper_description)/meshes/grip_mount_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${joint_prefix}left_mount_1">
+    <inertial>
+      <origin xyz="-0.012312197013134553 0.010499353929422754 0.01616872816060999" rpy="0 0 0"/>
+      <mass value="0.005850260501194334"/>
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.022798 0.016079 -0.032689" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find gripper_description)/meshes/left_mount_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <link name="${joint_prefix}right_mount_1">
+    <inertial>
+      <origin xyz="0.012015776314503238 0.010500460176130546 0.016402425646791258" rpy="0 0 0"/>
+      <mass value="0.005851464483284041"/>
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.022726 0.016079 -0.032981" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find gripper_description)/meshes/right_mount_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <link name="${joint_prefix}rubber_left_1">
+    <inertial>
+      <origin xyz="0.004252295929468346 4.91084999865686e-07 0.02544337370871609" rpy="0 0 0"/>
+      <mass value="0.008265327612092782"/>
+      <inertia ixx="3e-06" iyy="3e-06" izz="1e-06" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.037938 0.005589 -0.06038" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find gripper_description)/meshes/rubber_left_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin xyz="0.037938 0.005589 -0.06038" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find gripper_description)/meshes/rubber_left_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${joint_prefix}rubber_right_1">
+    <inertial>
+      <origin xyz="-0.005023147767699666 4.5740402191025986e-07 0.025301746998458823" rpy="0 0 0"/>
+      <mass value="0.008265327612092756"/>
+      <inertia ixx="3e-06" iyy="3e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="1e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.036906 0.005579 -0.061218" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find gripper_description)/meshes/rubber_right_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.036906 0.005579 -0.061218" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find gripper_description)/meshes/rubber_right_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${joint_prefix}t_shirt_1">
+    <inertial>
+      <origin xyz="0.00012163162070136035 -0.009411539665347687 0.013485226893769523" rpy="0 0 0"/>
+      <mass value="0.0026146856075812087"/>
+      <inertia ixx="0.0" iyy="1e-06" izz="0.0" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.000191 0.007667 -0.022124" rpy="0 0 0"/>
+    </visual>
+  </link>
+
+  <!-- ✅ All joints prefixed with namespace using joint_prefix -->
+  
+  <joint name="${joint_prefix}Rigid 20" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 ${pi/2}"/>
+    <parent link="${joint_prefix}tool_base"/>
+    <child link="${joint_prefix}grip_mount_1"/>
+  </joint>
+
+  <!-- ✅ Moving joints - using consistent Slider_22/Slider_23 naming -->
+  <joint name="${joint_prefix}Slider 22" type="prismatic">
+    <origin xyz="-0.022607 -0.008412 0.010565" rpy="0 0 0"/>
+    <parent link="${joint_prefix}t_shirt_1"/>
+    <child link="${joint_prefix}left_mount_1"/>
+    <axis xyz="0.817033 -0.0 0.576591"/>
+    <limit upper="0.022" lower="-0.003" effort="100" velocity="100"/>
+  </joint>
+
+  <joint name="${joint_prefix}Slider 23" type="prismatic">
+    <origin xyz="0.022917 -0.008412 0.010857" rpy="0 0 0"/>
+    <parent link="${joint_prefix}t_shirt_1"/>
+    <child link="${joint_prefix}right_mount_1"/>
+    <axis xyz="0.820609 0.0 -0.57149"/>
+    <limit upper="0.003" lower="-0.022" effort="100" velocity="100"/>
+  </joint>
+
+  <joint name="${joint_prefix}Rigid 24" type="fixed">
+    <origin xyz="-0.01514 0.01049 0.027691" rpy="0 0 0"/>
+    <parent link="${joint_prefix}left_mount_1"/>
+    <child link="${joint_prefix}rubber_left_1"/>
+  </joint>
+
+  <joint name="${joint_prefix}Rigid 25" type="fixed">
+    <origin xyz="0.01418 0.0105 0.028237" rpy="0 0 0"/>
+    <parent link="${joint_prefix}right_mount_1"/>
+    <child link="${joint_prefix}rubber_right_1"/>
+  </joint>
+
+  <joint name="${joint_prefix}Rigid 26" type="fixed">
+    <origin xyz="-0.000556 -0.001302 0.013562" rpy="0 0 0"/>
+    <parent link="${joint_prefix}grip_mount_1"/>
+    <child link="${joint_prefix}t_shirt_1"/>
+  </joint>
+
+</robot>

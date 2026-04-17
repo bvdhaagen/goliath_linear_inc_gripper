@@ -4,10 +4,15 @@
 <xacro:include filename="$(find base_link_linear_controller)/urdf/materials.xacro" />
 <xacro:include filename="$(find base_link_linear_controller)/urdf/base_link_linear.trans" />
 <xacro:include filename="$(find base_link_linear_controller)/urdf/base_link_linear.gazebo" />
+
+
+
 <xacro:include filename="$(find base_link_linear_controller)/ros2_control/base_link_linear.ros2_control.xacro" />
 
+<xacro:base_link_linear_ros2_control name="base_link_linear_ros2_control"/>
 
-<link name="base_link">
+
+<link name="base_link_linear">
   
   <visual>
     <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -23,6 +28,22 @@
     </geometry>
   </collision>
 </link>
+
+<link name="unilidar_imu_initial">
+ <visual>
+ <origin xyz="0 0 0" rpy="0 0 0"/>
+ <geometry>
+    <cylinder radius="0.04" length="0.06"/> 
+ </geometry>
+    <material name="blue"/>
+ </visual>
+  <collision>
+    <geometry>
+      <cylinder radius="0.04" length="0.06"/>
+    </geometry>
+  </collision>
+</link>
+
 
 <link name="block4_1">
   <inertial>
@@ -117,14 +138,14 @@
   <visual>
     <origin xyz="-0.002356 -0.0 -0.03" rpy="0 0 0"/>
     <geometry>
-      <mesh filename="file://$(find base_link_linear_description)/meshes/platform_v2_1.stl" scale="0.001 0.001 0.001"/>
+      <mesh filename="file://$(find base_link_linear_description)/meshes/platform.stl" scale="0.001 0.001 0.001"/>
     </geometry>
     <material name="silver"/>
   </visual>
   <collision>
     <origin xyz="-0.002356 -0.0 -0.03" rpy="0 0 0"/>
     <geometry>
-      <mesh filename="file://$(find base_link_linear_description)/meshes/platform_v2_1.stl" scale="0.001 0.001 0.001"/>
+      <mesh filename="file://$(find base_link_linear_description)/meshes/platform.stl" scale="0.001 0.001 0.001"/>
     </geometry>
   </collision>
 </link>
@@ -185,22 +206,22 @@
 
 <joint name="Rigid 8" type="fixed">
   <origin xyz="0.122356 0.498326 0.058" rpy="0 0 0"/>
-  <parent link="base_link"/>
+  <parent link="base_link_linear"/>
   <child link="rail_2_v1_1"/>
 </joint>
 
 <joint name="Rigid 9" type="fixed">
   <origin xyz="-0.117644 0.498326 0.058" rpy="0 0 0"/>
-  <parent link="base_link"/>
+  <parent link="base_link_linear"/>
   <child link="rail_1_v1_1"/>
 </joint>
 
 <joint name="slider_11" type="prismatic">
   <origin xyz="0.002356 0.0 0.03" rpy="0 0 0"/>
-  <parent link="base_link"/>
+  <parent link="base_link_linear"/>
   <child link="platform"/>
   <axis xyz="0.0 1.0 0.0"/>
-  <limit upper="0.34" lower="-0.35" effort="100" velocity="100"/>
+  <limit upper="0.455" lower="-0.455" effort="100" velocity="100"/>
 </joint>
 
 <joint name="Rigid 12" type="fixed">
@@ -215,5 +236,9 @@
   <child link="block2_1"/>
 </joint>
 
-
+<joint name="Rigid 15" type="fixed">
+  <origin xyz="0.0 0.65 0.07" rpy="0 0 -0.2"/>
+  <parent link="base_link_linear"/>
+  <child link="unilidar_imu_initial"/>
+</joint>
 </robot>

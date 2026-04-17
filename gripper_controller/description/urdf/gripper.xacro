@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<robot name="gripper" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 <xacro:include filename="$(find gripper_description)/urdf/materials.xacro" />
 <xacro:include filename="$(find gripper_description)/urdf/gripper.trans" />
@@ -7,19 +7,19 @@
 <xacro:include filename="$(find gripper_controller)/ros2_control/gripper.ros2_control.xacro" />
 <link name="tool_base">
   <inertial>
-    <origin xyz="0.00036492580961800734 -0.006364797616936964 0.004905590919618636" rpy="0 0 0"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
     <mass value="0.03336098454176251"/>
     <inertia ixx="5e-06" iyy="7e-06" izz="1.2e-05" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
   </inertial>
   <visual>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <origin xyz="0.0045 0.003 0" rpy="0 0 ${-pi/2}"/>
     <geometry>
       <mesh filename="file://$(find gripper_description)/meshes/tool_base.stl" scale="0.001 0.001 0.001"/>
     </geometry>
     <material name="silver"/>
   </visual>
   <collision>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <origin xyz="0.0045 0.003 0" rpy="0 0 ${-pi/2}"/>
     <geometry>
       <mesh filename="file://$(find gripper_description)/meshes/tool_base.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -28,7 +28,7 @@
 
 <link name="grip_mount_1">
   <inertial>
-    <origin xyz="-0.00034136005542522146 0.015547767390796129 0.01883273293370806" rpy="0 0 0"/>
+    <origin xyz="-0.000 0.015547767390796129 0.01883273293370806" rpy="0 0 0"/>
     <mass value="0.026038448039166225"/>
     <inertia ixx="5e-06" iyy="4e-06" izz="5e-06" ixy="0.0" iyz="-1e-06" ixz="0.0"/>
   </inertial>
@@ -60,12 +60,12 @@
     </geometry>
     <material name="black"/>
   </visual>
-  <collision>
+  <!-- <collision>
     <origin xyz="0.022798 0.016079 -0.032689" rpy="0 0 0"/>
     <geometry>
       <mesh filename="file://$(find gripper_description)/meshes/left_mount_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-  </collision>
+  </collision> -->
 </link>
 
 <link name="right_mount_1">
@@ -81,12 +81,12 @@
     </geometry>
     <material name="black"/>
   </visual>
-  <collision>
+  <!-- <collision>
     <origin xyz="-0.022726 0.016079 -0.032981" rpy="0 0 0"/>
     <geometry>
       <mesh filename="file://$(find gripper_description)/meshes/right_mount_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-  </collision>
+  </collision> -->
 </link>
 
 <link name="rubber_left_1">
@@ -139,21 +139,21 @@
   </inertial>
   <visual>
     <origin xyz="0.000191 0.007667 -0.022124" rpy="0 0 0"/>
-    <geometry>
+    <!-- <geometry>
       <mesh filename="file://$(find gripper_description)/meshes/t_shirt_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="black"/>
+    <material name="black"/> -->
   </visual>
-  <collision>
+  <!-- <collision>
     <origin xyz="0.000191 0.007667 -0.022124" rpy="0 0 0"/>
     <geometry>
       <mesh filename="file://$(find gripper_description)/meshes/t_shirt_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-  </collision>
+  </collision> -->
 </link>
 
 <joint name="Rigid 20" type="fixed">
-  <origin xyz="0.000365 -0.006365 0.008562" rpy="0 0 0"/>
+  <origin xyz="0.0 0.0 0.0" rpy="0 0 ${pi/2}"/>
   <parent link="tool_base"/>
   <child link="grip_mount_1"/>
 </joint>
@@ -192,7 +192,7 @@
   <child link="t_shirt_1"/>
 </joint>
 
-<ros2_control name="Robot" type="system">
+<ros2_control name="gripper" type="system">
 
       <hardware>
         <plugin>gripper_controller/RobotSystem</plugin>
